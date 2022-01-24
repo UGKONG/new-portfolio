@@ -1,6 +1,7 @@
 <template>
   <section>
-    <Calendar :dateClick="dateClick" :list="list" />
+    <Loading v-if="isLoad" />
+    <Calendar v-if="!isLoad" :dateClick="dateClick" :list="list" />
 
     <!-- Modal -->
     <transition name="fade-transition">
@@ -19,9 +20,11 @@ import axios from "axios";
 import { EventBus } from "@/../plugins/store";
 import Calendar from "@/../template/Calendar";
 import Add from "@/pages/Main/Add";
+import Loading from "@/pages/Common/Loading";
 
 export default {
   components: {
+    Loading,
     Calendar,
     Add,
   },
@@ -29,6 +32,7 @@ export default {
     list: [],
     isAdd: false,
     selectDate: "",
+    isLoad: true,
   }),
   created() {
     this.getList();
@@ -40,6 +44,7 @@ export default {
         .get(this.$store.state.dbUrl + "/home/mySchedule.json")
         .then(({ data }) => {
           this.list = data;
+          this.isLoad = false;
         });
     },
     dateClick(date) {

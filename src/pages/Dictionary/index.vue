@@ -1,6 +1,7 @@
 <template>
   <section>
-    <header>
+    <Loading v-if="isLoad" />
+    <header v-if="!isLoad">
       <h2>Dictionary Page</h2>
       <span>
         <SearchInput @setValue="setValue" />
@@ -9,7 +10,7 @@
         </button>
       </span>
     </header>
-    <main>
+    <main v-if="!isLoad">
       <p v-if="value != ''">검색어: {{ value }}</p>
       <ul>
         <DictionaryLi
@@ -33,9 +34,11 @@ import axios from "axios";
 import SearchInput from "@/../template/SearchInput";
 import DictionaryLi from "./DictionaryLi";
 import Add from "@/pages/Dictionary/Add";
+import Loading from "@/pages/Common/Loading";
 
 export default {
   components: {
+    Loading,
     SearchInput,
     DictionaryLi,
     Add,
@@ -45,6 +48,7 @@ export default {
       value: "",
       list: [],
       isAdd: false,
+      isLoad: true,
     };
   },
   created() {
@@ -62,6 +66,7 @@ export default {
         .get(this.$store.state.dbUrl + "/dictionary.json")
         .then(({ data }) => {
           this.list = data;
+          this.isLoad = false;
         });
     },
   },

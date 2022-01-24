@@ -103,6 +103,34 @@ $shop-tab-optionHeight: 40px;
   padding-bottom: 10px;
   border-bottom: 1px solid $whiteGray;
 }
+@mixin size ($w: unset, $h: unset) {
+  width: $w;
+  height: $h;
+  min-width: $w;
+  min-height: $h;
+  max-width: $w;
+  max-height: $h;
+}
+
+@mixin boxTitle() { 
+  @include font(20px, 700, $main);
+  position: relative;
+  text-align: center;
+  padding-bottom: 10px;
+  margin-bottom: 40px;
+
+  &::before {
+    content: "";
+    width: 70px;
+    height: 2px;
+    background-color: $main;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 1px 2px 4px #33333370;
+  }
+}
 
 :root {
   --gray: #777;

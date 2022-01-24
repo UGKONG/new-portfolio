@@ -80,6 +80,7 @@ main[bg] {
     height: calc(100% - 38px);
     padding-top: 10px;
     overflow: auto;
+    padding: 10px 2px 2px;
   }
 }
 </style>
