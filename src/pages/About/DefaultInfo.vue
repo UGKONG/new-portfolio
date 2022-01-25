@@ -22,9 +22,13 @@
       <div>
         <h3>SNS</h3>
         <ul>
-          <li>velog</li>
-          <li>git</li>
-          <li>mail</li>
+          <li v-for="(item, i) in iconList" :key="i">
+            <a
+              :href="item.url"
+              target="new"
+              :style="{ backgroundImage: 'url(' + item.icon + ')' }"
+            />
+          </li>
         </ul>
       </div>
     </div>
@@ -32,14 +36,26 @@
 </template>
 
 <script>
+import velog from "@/../public/images/icon/velog.png";
+import git from "@/../public/images/icon/git.png";
+import mail from "@/../public/images/icon/mail.png";
+
 export default {
   props: {
     data: Object,
     size: Object,
   },
+  data: () => ({}),
   computed: {
     img() {
       return { backgroundImage: "url(" + this.data.img + ")" };
+    },
+    iconList() {
+      return [
+        { icon: velog, url: "https://velog.io/@jsw9330" },
+        { icon: git, url: "https://github.com/UGKONG" },
+        { icon: mail, url: "mailto:jsw9330@icloud.com" },
+      ];
     },
   },
 };
@@ -63,10 +79,13 @@ article {
   }
 
   [text] {
+    height: calc(100% - 64px - 222px - 30px);
+    overflow: auto;
+
     & > div {
       padding: 10px 0;
       text-align: center;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
 
       h3 {
         @include font(13px, 700, $main, 1px);
@@ -81,10 +100,19 @@ article {
         li {
           @include size(36px, 36px);
           @include border(1px solid $whiteGray, 50%);
-          @include background-reset(cover);
           @include flex(center);
-          @include font(11px, 400, $gray);
           margin: 0 4px;
+          overflow: hidden;
+
+          & > a {
+            @include wrap(block);
+            @include background-reset(cover);
+            transform: scale(1.1);
+          }
+
+          &:hover {
+            box-shadow: 0 0 3px $gray;
+          }
         }
       }
     }

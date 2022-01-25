@@ -61,7 +61,9 @@ export default {
 @import "@style";
 $margin: 20px;
 $defaultW: 300px;
-
+main {
+  overflow: hidden !important;
+}
 main > article {
   @include border(1px soli #eee, 8px);
   padding: 20px;
